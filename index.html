@@ -6,18 +6,115 @@
   <title>Sharp Puma</title>
 
   <style>
+    :root {
+      color-scheme: dark;
+      --accent: #9bea4c;
+      --surface: #1b2537;
+      --muted: #b7c1d1;
+    }
+
+    * { box-sizing: border-box; }
+
     body {
-      max-width: 720px;
-      margin: 80px auto;
-      padding: 0 24px;
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 64px 24px;
       font-family: system-ui, sans-serif;
       line-height: 1.6;
       background: #111827;
       color: #f9fafb;
     }
 
-    h1 {
-      color: limegreen;
+    h1 { color: var(--accent); }
+    h2 { margin-bottom: 4px; }
+    .intro { color: var(--muted); }
+
+    .carousel {
+      position: relative;
+      margin-top: 28px;
+      overflow: hidden;
+      border: 1px solid #31405a;
+      border-radius: 20px;
+      background: var(--surface);
+      box-shadow: 0 24px 60px rgb(0 0 0 / 35%);
+    }
+
+    .slides {
+      display: flex;
+      transition: transform 500ms cubic-bezier(.2, .7, .2, 1);
+    }
+
+    .slide {
+      min-width: 100%;
+      margin: 0;
+      position: relative;
+    }
+
+    .slide img {
+      display: block;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+    }
+
+    .slide figcaption {
+      position: absolute;
+      inset: auto 0 0;
+      padding: 48px 22px 18px;
+      font-weight: 650;
+      background: linear-gradient(transparent, rgb(0 0 0 / 78%));
+    }
+
+    .carousel-button {
+      position: absolute;
+      top: 50%;
+      width: 44px;
+      height: 44px;
+      border: 0;
+      border-radius: 50%;
+      color: #111827;
+      background: rgb(255 255 255 / 88%);
+      font-size: 24px;
+      cursor: pointer;
+      transform: translateY(-50%);
+      transition: background 160ms, transform 160ms;
+    }
+
+    .carousel-button:hover { background: var(--accent); }
+    .carousel-button:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+    .carousel-button:active { transform: translateY(-50%) scale(.94); }
+    .previous { left: 14px; }
+    .next { right: 14px; }
+
+    .dots {
+      display: flex;
+      justify-content: center;
+      gap: 9px;
+      padding: 14px;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      padding: 0;
+      border: 0;
+      border-radius: 50%;
+      background: #6b7890;
+      cursor: pointer;
+    }
+
+    .dot[aria-current="true"] { background: var(--accent); transform: scale(1.25); }
+    .dot:focus-visible { outline: 2px solid white; outline-offset: 3px; }
+
+    @media (max-width: 560px) {
+      body { padding: 36px 16px; }
+      .carousel { border-radius: 14px; }
+      .carousel-button { width: 38px; height: 38px; font-size: 20px; }
+      .slide figcaption { font-size: .9rem; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .slides { transition: none; }
     }
   </style>
 </head>
@@ -26,5 +123,86 @@
   <h1>Sharp Puma 🐆</h1>
   <p>My GitHub Pages test site is working.</p>
   <p>Next stop: experimenting with C# and Blazor.</p>
+
+  <section aria-labelledby="puma-gallery-title">
+    <h2 id="puma-gallery-title">Pumas in the wild</h2>
+    <p class="intro">Three habitats, one remarkably adaptable cat.</p>
+
+    <div class="carousel" role="region" aria-roledescription="carousel" aria-label="Puma photographs">
+      <div class="slides" aria-live="polite">
+        <figure class="slide" aria-label="1 of 3">
+          <img src="assets/puma-patagonia.webp" alt="Puma standing on a rocky Patagonian ridge at golden hour" width="1600" height="896">
+          <figcaption>Patagonia — master of the mountain ridge</figcaption>
+        </figure>
+        <figure class="slide" aria-label="2 of 3" aria-hidden="true">
+          <img src="assets/puma-forest.webp" alt="Puma walking among ferns in a misty evergreen forest" width="1600" height="1067" loading="lazy">
+          <figcaption>Temperate forest — silent steps through the mist</figcaption>
+        </figure>
+        <figure class="slide" aria-label="3 of 3" aria-hidden="true">
+          <img src="assets/puma-canyon.webp" alt="Puma resting beside sunlit sandstone in a desert canyon" width="1600" height="1067" loading="lazy">
+          <figcaption>Desert canyon — resting in the afternoon sun</figcaption>
+        </figure>
+      </div>
+
+      <button class="carousel-button previous" type="button" aria-label="Previous image">&#8249;</button>
+      <button class="carousel-button next" type="button" aria-label="Next image">&#8250;</button>
+      <div class="dots" aria-label="Choose an image"></div>
+    </div>
+  </section>
+
+  <script>
+    const carousel = document.querySelector('.carousel');
+    const track = carousel.querySelector('.slides');
+    const slides = [...carousel.querySelectorAll('.slide')];
+    const dots = carousel.querySelector('.dots');
+    let current = 0;
+    let timer;
+    let touchStartX = 0;
+
+    slides.forEach((_, index) => {
+      const dot = document.createElement('button');
+      dot.className = 'dot';
+      dot.type = 'button';
+      dot.setAttribute('aria-label', `Show image ${index + 1}`);
+      dot.addEventListener('click', () => show(index, true));
+      dots.append(dot);
+    });
+
+    const dotButtons = [...dots.children];
+
+    function show(index, restart = false) {
+      current = (index + slides.length) % slides.length;
+      track.style.transform = `translateX(-${current * 100}%)`;
+      slides.forEach((slide, i) => slide.setAttribute('aria-hidden', i !== current));
+      dotButtons.forEach((dot, i) => dot.setAttribute('aria-current', i === current));
+      if (restart) start();
+    }
+
+    function start() {
+      clearInterval(timer);
+      if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        timer = setInterval(() => show(current + 1), 5500);
+      }
+    }
+
+    carousel.querySelector('.previous').addEventListener('click', () => show(current - 1, true));
+    carousel.querySelector('.next').addEventListener('click', () => show(current + 1, true));
+    carousel.addEventListener('mouseenter', () => clearInterval(timer));
+    carousel.addEventListener('mouseleave', start);
+    carousel.addEventListener('focusin', () => clearInterval(timer));
+    carousel.addEventListener('focusout', start);
+    carousel.addEventListener('keydown', event => {
+      if (event.key === 'ArrowLeft') show(current - 1, true);
+      if (event.key === 'ArrowRight') show(current + 1, true);
+    });
+    carousel.addEventListener('touchstart', event => { touchStartX = event.changedTouches[0].clientX; }, { passive: true });
+    carousel.addEventListener('touchend', event => {
+      const distance = event.changedTouches[0].clientX - touchStartX;
+      if (Math.abs(distance) > 45) show(current + (distance < 0 ? 1 : -1), true);
+    }, { passive: true });
+
+    show(0);
+    start();
+  </script>
 </body>
 </html>
