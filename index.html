@@ -3,173 +3,357 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Sharp Puma</title>
-
+  <meta name="description" content="Discover the puma—its remarkable range, biology, habitats and role in healthy ecosystems across the Americas.">
+  <meta name="theme-color" content="#18231d">
+  <title>Sharp Puma — Ghost Cat of the Americas</title>
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap');
+
     :root {
-      color-scheme: dark;
-      --accent: #9bea4c;
-      --surface: #1b2537;
-      --muted: #b7c1d1;
+      --ink: #18231d;
+      --forest: #21362a;
+      --moss: #668253;
+      --lime: #c8e36c;
+      --sand: #eee5d5;
+      --cream: #f8f5ed;
+      --white: #fff;
+      --muted: #657068;
+      --line: #d9ded5;
+      --shadow: 0 24px 70px rgb(24 35 29 / 14%);
     }
 
     * { box-sizing: border-box; }
-
+    html { scroll-behavior: smooth; }
     body {
-      max-width: 860px;
-      margin: 0 auto;
-      padding: 64px 24px;
-      font-family: system-ui, sans-serif;
-      line-height: 1.6;
-      background: #111827;
-      color: #f9fafb;
-    }
-
-    h1 { color: var(--accent); }
-    h2 { margin-bottom: 4px; }
-    .intro { color: var(--muted); }
-
-    .carousel {
-      position: relative;
-      margin-top: 28px;
-      overflow: hidden;
-      border: 1px solid #31405a;
-      border-radius: 20px;
-      background: var(--surface);
-      box-shadow: 0 24px 60px rgb(0 0 0 / 35%);
-    }
-
-    .slides {
-      display: flex;
-      transition: transform 500ms cubic-bezier(.2, .7, .2, 1);
-    }
-
-    .slide {
-      min-width: 100%;
       margin: 0;
-      position: relative;
+      color: var(--ink);
+      background: var(--cream);
+      font-family: "DM Sans", system-ui, sans-serif;
+      line-height: 1.65;
     }
 
-    .slide img {
-      display: block;
-      width: 100%;
-      aspect-ratio: 16 / 9;
-      object-fit: cover;
-    }
-
-    .slide figcaption {
-      position: absolute;
-      inset: auto 0 0;
-      padding: 48px 22px 18px;
-      font-weight: 650;
-      background: linear-gradient(transparent, rgb(0 0 0 / 78%));
-    }
-
-    .carousel-button {
-      position: absolute;
-      top: 50%;
-      width: 44px;
-      height: 44px;
-      border: 0;
-      border-radius: 50%;
-      color: #111827;
-      background: rgb(255 255 255 / 88%);
-      font-size: 24px;
-      cursor: pointer;
-      transform: translateY(-50%);
-      transition: background 160ms, transform 160ms;
-    }
-
-    .carousel-button:hover { background: var(--accent); }
-    .carousel-button:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
-    .carousel-button:active { transform: translateY(-50%) scale(.94); }
-    .previous { left: 14px; }
-    .next { right: 14px; }
-
-    .dots {
-      display: flex;
-      justify-content: center;
+    img { max-width: 100%; }
+    a { color: inherit; }
+    button { font: inherit; }
+    .shell { width: min(1160px, calc(100% - 48px)); margin-inline: auto; }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
       gap: 9px;
-      padding: 14px;
+      margin: 0 0 16px;
+      color: var(--moss);
+      font-size: .77rem;
+      font-weight: 800;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+    }
+    .eyebrow::before { content: ""; width: 28px; height: 2px; background: currentColor; }
+    h1, h2, h3 { font-family: "Manrope", system-ui, sans-serif; line-height: 1.08; }
+    h2 { margin: 0; font-size: clamp(2.1rem, 4.6vw, 4rem); letter-spacing: -.045em; }
+    .lede { max-width: 670px; color: var(--muted); font-size: 1.12rem; }
+    .section { padding: 110px 0; }
+    .section-head { display: flex; align-items: end; justify-content: space-between; gap: 40px; margin-bottom: 50px; }
+    .section-head .lede { margin: 0; max-width: 470px; }
+
+    .site-header {
+      position: absolute;
+      z-index: 20;
+      inset: 0 0 auto;
+      color: var(--white);
+      border-bottom: 1px solid rgb(255 255 255 / 18%);
+    }
+    .nav { height: 78px; display: flex; align-items: center; justify-content: space-between; }
+    .brand { display: flex; align-items: center; gap: 11px; font-family: "Manrope"; font-weight: 800; text-decoration: none; letter-spacing: -.02em; }
+    .brand-mark { display: grid; place-items: center; width: 36px; height: 36px; border-radius: 50%; color: var(--ink); background: var(--lime); font-size: 1.15rem; }
+    .nav-links { display: flex; gap: 30px; }
+    .nav-links a { color: rgb(255 255 255 / 82%); font-size: .9rem; font-weight: 600; text-decoration: none; }
+    .nav-links a:hover { color: var(--white); }
+
+    .hero {
+      position: relative;
+      min-height: 790px;
+      display: flex;
+      align-items: end;
+      color: var(--white);
+      overflow: hidden;
+      background: var(--forest);
+    }
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, rgb(9 19 13 / 82%) 0%, rgb(9 19 13 / 48%) 42%, transparent 72%), linear-gradient(0deg, rgb(9 19 13 / 55%), transparent 45%);
+      z-index: 1;
+    }
+    .hero-image { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+    .hero-content { position: relative; z-index: 2; padding: 180px 0 115px; }
+    .hero .eyebrow { color: var(--lime); }
+    h1 { max-width: 760px; margin: 0; font-size: clamp(3.8rem, 9.3vw, 7.7rem); letter-spacing: -.065em; }
+    .hero-copy { max-width: 560px; margin: 24px 0 34px; color: rgb(255 255 255 / 78%); font-size: 1.18rem; }
+    .button { display: inline-flex; align-items: center; gap: 12px; padding: 14px 20px; border-radius: 999px; font-weight: 700; text-decoration: none; transition: transform .2s, background .2s; }
+    .button:hover { transform: translateY(-2px); }
+    .button-primary { color: var(--ink); background: var(--lime); }
+    .button-primary:hover { background: #dcf58a; }
+    .hero-note { position: absolute; z-index: 2; right: max(24px, calc((100vw - 1160px) / 2)); bottom: 42px; display: flex; align-items: center; gap: 12px; color: rgb(255 255 255 / 70%); font-size: .78rem; }
+    .hero-note::before { content: ""; width: 42px; height: 1px; background: currentColor; }
+
+    .stats { position: relative; z-index: 3; margin-top: -40px; }
+    .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); background: var(--white); border-radius: 18px; box-shadow: var(--shadow); overflow: hidden; }
+    .stat { padding: 30px 32px; border-right: 1px solid var(--line); }
+    .stat:last-child { border: 0; }
+    .stat strong { display: block; font: 800 clamp(2rem, 4vw, 3.2rem)/1 "Manrope"; letter-spacing: -.06em; }
+    .stat span { display: block; margin-top: 8px; color: var(--muted); font-size: .84rem; }
+
+    .intro-grid { display: grid; grid-template-columns: .95fr 1.05fr; align-items: center; gap: 90px; }
+    .portrait-wrap { position: relative; }
+    .portrait-wrap::before { content: ""; position: absolute; inset: 28px -28px -28px 28px; border-radius: 22px; background: var(--sand); }
+    .portrait-wrap img { position: relative; display: block; width: 100%; aspect-ratio: 4/5; object-fit: cover; border-radius: 22px; box-shadow: var(--shadow); }
+    .intro-copy h2 { margin-bottom: 28px; }
+    .intro-copy p { color: var(--muted); }
+    .latin { display: inline-block; margin-top: 12px; padding: 9px 13px; color: var(--forest); background: #e5eadb; border-radius: 6px; font: italic 600 .9rem Georgia, serif; }
+
+    .facts-section { color: var(--white); background: var(--ink); overflow: hidden; }
+    .facts-section .eyebrow { color: var(--lime); }
+    .facts-section .lede { color: rgb(255 255 255 / 60%); }
+    .facts-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
+    .fact-card { min-height: 260px; padding: 34px; border: 1px solid rgb(255 255 255 / 12%); border-radius: 18px; background: rgb(255 255 255 / 4%); }
+    .fact-number { color: var(--lime); font: 800 3.5rem/1 "Manrope"; letter-spacing: -.06em; }
+    .fact-card h3 { margin: 58px 0 10px; font-size: 1.35rem; }
+    .fact-card p { margin: 0; color: rgb(255 255 255 / 60%); font-size: .94rem; }
+
+    .family-section { padding: 0; background: var(--sand); }
+    .family-grid { display: grid; grid-template-columns: 1.05fr .95fr; min-height: 680px; }
+    .family-image { width: 100%; height: 100%; object-fit: cover; }
+    .family-copy { display: flex; flex-direction: column; justify-content: center; padding: 80px clamp(36px, 7vw, 100px); }
+    .family-copy p { color: #596159; }
+    .detail-list { display: grid; gap: 17px; margin-top: 20px; }
+    .detail { display: grid; grid-template-columns: 36px 1fr; gap: 14px; align-items: start; }
+    .detail-icon { display: grid; place-items: center; width: 32px; height: 32px; color: var(--forest); background: var(--lime); border-radius: 50%; font-weight: 800; }
+    .detail strong { display: block; }
+    .detail span { color: #697168; font-size: .9rem; }
+
+    .gallery-section { background: var(--white); }
+    .carousel { position: relative; overflow: hidden; border-radius: 22px; background: var(--ink); box-shadow: var(--shadow); }
+    .slides { display: flex; transition: transform 550ms cubic-bezier(.2,.7,.2,1); }
+    .slide { min-width: 100%; position: relative; margin: 0; }
+    .slide img { display: block; width: 100%; aspect-ratio: 16/8.5; object-fit: cover; }
+    .slide figcaption { position: absolute; inset: auto 0 0; padding: 80px 32px 28px; color: var(--white); background: linear-gradient(transparent, rgb(0 0 0 / 78%)); }
+    .slide figcaption strong { display: block; font: 700 1.4rem "Manrope"; }
+    .slide figcaption span { color: rgb(255 255 255 / 72%); font-size: .88rem; }
+    .carousel-button { position: absolute; top: 50%; width: 48px; height: 48px; border: 0; border-radius: 50%; color: var(--ink); background: rgb(255 255 255 / 88%); font-size: 25px; cursor: pointer; transform: translateY(-50%); transition: background .2s, transform .2s; }
+    .carousel-button:hover { background: var(--lime); }
+    .carousel-button:active { transform: translateY(-50%) scale(.94); }
+    .carousel-button:focus-visible, .dot:focus-visible { outline: 3px solid var(--lime); outline-offset: 3px; }
+    .previous { left: 18px; }
+    .next { right: 18px; }
+    .dots { position: absolute; z-index: 3; right: 28px; bottom: 28px; display: flex; gap: 8px; }
+    .dot { width: 8px; height: 8px; padding: 0; border: 0; border-radius: 50%; background: rgb(255 255 255 / 45%); cursor: pointer; transition: width .2s, background .2s; }
+    .dot[aria-current="true"] { width: 25px; border-radius: 8px; background: var(--lime); }
+
+    .conservation-grid { display: grid; grid-template-columns: .85fr 1.15fr; gap: 80px; }
+    .conservation-copy { position: sticky; top: 40px; align-self: start; }
+    .conservation-copy .lede { margin-top: 24px; }
+    .threats { display: grid; gap: 18px; }
+    .threat { padding: 28px; border: 1px solid var(--line); border-radius: 15px; background: var(--white); }
+    .threat-top { display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+    .threat h3 { margin: 0; font-size: 1.16rem; }
+    .tag { padding: 5px 9px; color: var(--forest); background: #e5eadb; border-radius: 999px; font-size: .7rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+    .threat p { margin: 10px 0 0; color: var(--muted); font-size: .92rem; }
+
+    .resources { color: var(--white); background: var(--forest); }
+    .resources .eyebrow { color: var(--lime); }
+    .resource-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-top: 44px; }
+    .resource-card { position: relative; min-height: 210px; padding: 28px; border: 1px solid rgb(255 255 255 / 15%); border-radius: 16px; text-decoration: none; background: rgb(255 255 255 / 5%); transition: transform .25s, background .25s; }
+    .resource-card:hover { transform: translateY(-4px); background: rgb(255 255 255 / 9%); }
+    .resource-card small { color: var(--lime); font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+    .resource-card h3 { max-width: 320px; margin: 34px 0 8px; font-size: 1.45rem; }
+    .resource-card p { margin: 0; color: rgb(255 255 255 / 58%); font-size: .88rem; }
+    .resource-arrow { position: absolute; right: 25px; top: 25px; font-size: 1.25rem; }
+
+    footer { padding: 30px 0; color: #687269; background: #101713; font-size: .82rem; }
+    .footer-inner { display: flex; justify-content: space-between; gap: 20px; }
+
+    @media (max-width: 900px) {
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .stat:nth-child(2) { border-right: 0; }
+      .stat:nth-child(-n+2) { border-bottom: 1px solid var(--line); }
+      .intro-grid, .family-grid, .conservation-grid { grid-template-columns: 1fr; }
+      .intro-grid { gap: 70px; }
+      .portrait-wrap { max-width: 620px; }
+      .family-image { max-height: 620px; }
+      .conservation-copy { position: static; }
+      .section-head { display: block; }
+      .section-head .lede { margin-top: 22px; }
     }
 
-    .dot {
-      width: 10px;
-      height: 10px;
-      padding: 0;
-      border: 0;
-      border-radius: 50%;
-      background: #6b7890;
-      cursor: pointer;
-    }
-
-    .dot[aria-current="true"] { background: var(--accent); transform: scale(1.25); }
-    .dot:focus-visible { outline: 2px solid white; outline-offset: 3px; }
-
-    @media (max-width: 560px) {
-      body { padding: 36px 16px; }
-      .carousel { border-radius: 14px; }
-      .carousel-button { width: 38px; height: 38px; font-size: 20px; }
-      .slide figcaption { font-size: .9rem; }
+    @media (max-width: 650px) {
+      .shell { width: min(100% - 32px, 1160px); }
+      .nav-links { display: none; }
+      .hero { min-height: 720px; }
+      .hero::before { background: linear-gradient(0deg, rgb(8 18 12 / 90%), rgb(8 18 12 / 16%) 78%); }
+      .hero-image { object-position: 65% center; }
+      .hero-content { padding: 150px 0 100px; }
+      h1 { font-size: clamp(3.4rem, 19vw, 5.4rem); }
+      .hero-note { display: none; }
+      .section { padding: 78px 0; }
+      .stats { margin-top: -24px; }
+      .stat { padding: 23px 18px; }
+      .stat strong { font-size: 2.1rem; }
+      .facts-grid, .resource-grid { grid-template-columns: 1fr; }
+      .fact-card { min-height: 230px; }
+      .family-grid { min-height: auto; }
+      .family-copy { padding: 70px 24px; }
+      .slide img { aspect-ratio: 4/5; }
+      .slide figcaption { padding-inline: 20px; }
+      .dots { left: 20px; right: auto; bottom: 18px; }
+      .slide figcaption { padding-bottom: 53px; }
+      .carousel-button { width: 41px; height: 41px; }
+      .previous { left: 10px; }
+      .next { right: 10px; }
+      .footer-inner { display: block; }
     }
 
     @media (prefers-reduced-motion: reduce) {
-      .slides { transition: none; }
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; }
     }
   </style>
 </head>
-
 <body>
-  <h1>Sharp Puma 🐆</h1>
-  <p>My GitHub Pages test site is working.</p>
-  <p>Next stop: experimenting with C# and Blazor.</p>
-
-  <section aria-labelledby="puma-gallery-title">
-    <h2 id="puma-gallery-title">Pumas in the wild</h2>
-    <p class="intro">Three habitats, one remarkably adaptable cat.</p>
-
-    <div class="carousel" role="region" aria-roledescription="carousel" aria-label="Puma photographs">
-      <div class="slides" aria-live="polite">
-        <figure class="slide" aria-label="1 of 3">
-          <img src="assets/puma-patagonia.webp" alt="Puma standing on a rocky Patagonian ridge at golden hour" width="1600" height="896">
-          <figcaption>Patagonia — master of the mountain ridge</figcaption>
-        </figure>
-        <figure class="slide" aria-label="2 of 3" aria-hidden="true">
-          <img src="assets/puma-forest.webp" alt="Puma walking among ferns in a misty evergreen forest" width="1600" height="1067" loading="lazy">
-          <figcaption>Temperate forest — silent steps through the mist</figcaption>
-        </figure>
-        <figure class="slide" aria-label="3 of 3" aria-hidden="true">
-          <img src="assets/puma-canyon.webp" alt="Puma resting beside sunlit sandstone in a desert canyon" width="1600" height="1067" loading="lazy">
-          <figcaption>Desert canyon — resting in the afternoon sun</figcaption>
-        </figure>
-      </div>
-
-      <button class="carousel-button previous" type="button" aria-label="Previous image">&#8249;</button>
-      <button class="carousel-button next" type="button" aria-label="Next image">&#8250;</button>
-      <div class="dots" aria-label="Choose an image"></div>
+  <header class="site-header">
+    <div class="shell nav">
+      <a class="brand" href="#top" aria-label="Sharp Puma home"><span class="brand-mark">P</span> Sharp Puma</a>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="#discover">Discover</a><a href="#facts">Facts</a><a href="#habitats">Habitats</a><a href="#conservation">Conservation</a>
+      </nav>
     </div>
-  </section>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <img class="hero-image" src="assets/puma-hero.webp" alt="Puma walking through golden grass in the Andes at sunrise" width="1792" height="896">
+      <div class="shell hero-content">
+        <p class="eyebrow">Ghost cat of the Americas</p>
+        <h1>Built for the wild.</h1>
+        <p class="hero-copy">One cat. Twenty-three countries. From Canadian forests to the southern edge of Patagonia, the puma thrives across one of the widest ranges of any land mammal.</p>
+        <a class="button button-primary" href="#discover">Meet the puma <span aria-hidden="true">↓</span></a>
+      </div>
+      <div class="hero-note">Puma concolor</div>
+    </section>
+
+    <div class="shell stats" aria-label="Puma facts at a glance">
+      <div class="stats-grid">
+        <div class="stat"><strong>23</strong><span>countries across the Americas</span></div>
+        <div class="stat"><strong>12 m</strong><span>horizontal leap capability</span></div>
+        <div class="stat"><strong>120 kg</strong><span>upper recorded male weight</span></div>
+        <div class="stat"><strong>LC</strong><span>IUCN global status: Least Concern</span></div>
+      </div>
+    </div>
+
+    <section class="section" id="discover">
+      <div class="shell intro-grid">
+        <div class="portrait-wrap"><img src="assets/puma-portrait.webp" alt="Close portrait of an attentive adult puma" width="1536" height="1024" loading="lazy"></div>
+        <div class="intro-copy">
+          <p class="eyebrow">Meet an icon</p>
+          <h2>Many names. One remarkable cat.</h2>
+          <p class="lede">Puma, cougar, mountain lion, catamount and panther all refer to the same adaptable species. Its power lies not in brute size, but in stealth, balance and explosive movement.</p>
+          <p>A long tail steadies every turn. Powerful hind legs drive extraordinary leaps. A tawny coat lets the puma disappear into grassland, forest, desert and rock. Mostly solitary and most active around dawn and dusk, it is built to move unseen.</p>
+          <span class="latin">Puma concolor — “of one color”</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="section facts-section" id="facts">
+      <div class="shell">
+        <div class="section-head">
+          <div><p class="eyebrow">Field notes</p><h2>Designed to adapt.</h2></div>
+          <p class="lede">Few large predators are as versatile. The puma’s body, behavior and appetite shift with the landscapes it calls home.</p>
+        </div>
+        <div class="facts-grid">
+          <article class="fact-card"><div class="fact-number">01</div><h3>A continental range</h3><p>Its range stretches from southern Alaska to the tip of Chile—larger than that of any other native terrestrial mammal in the Western Hemisphere.</p></article>
+          <article class="fact-card"><div class="fact-number">02</div><h3>Built to spring</h3><p>Large hind legs can propel a puma roughly 12 metres horizontally or 5.5 metres vertically in a single leap.</p></article>
+          <article class="fact-card"><div class="fact-number">03</div><h3>Opportunistic hunter</h3><p>Deer are important prey, but pumas adapt their diet to local ecosystems—from rodents and birds to larger hoofed mammals.</p></article>
+          <article class="fact-card"><div class="fact-number">04</div><h3>An ecosystem broker</h3><p>Researchers have documented relationships between pumas and nearly 500 other species, revealing their far-reaching ecological influence.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="family-section" aria-labelledby="family-title">
+      <div class="family-grid">
+        <img class="family-image" src="assets/puma-family.webp" alt="Puma mother resting in a rocky den with two spotted cubs" width="1536" height="1024" loading="lazy">
+        <div class="family-copy">
+          <p class="eyebrow">The next generation</p>
+          <h2 id="family-title">Born spotted. Raised wild.</h2>
+          <p class="lede">Puma cubs begin life with blue eyes and spotted coats—camouflage that fades as they grow. Their mother is their sole protector and teacher.</p>
+          <div class="detail-list">
+            <div class="detail"><span class="detail-icon">1</span><div><strong>Secluded beginnings</strong><span>Cubs are born in sheltered dens, hidden among rock, brush or dense vegetation.</span></div></div>
+            <div class="detail"><span class="detail-icon">2</span><div><strong>Learning by following</strong><span>Young pumas travel with their mother and gradually learn to stalk and hunt.</span></div></div>
+            <div class="detail"><span class="detail-icon">3</span><div><strong>Life on their own</strong><span>At around 18 months, most juveniles disperse to find territory of their own.</span></div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section gallery-section" id="habitats">
+      <div class="shell">
+        <div class="section-head">
+          <div><p class="eyebrow">Across the Americas</p><h2>At home almost anywhere.</h2></div>
+          <p class="lede">Pumas inhabit every forest type in their range, as well as high mountains, open steppe, wetlands and dry desert landscapes.</p>
+        </div>
+        <div class="carousel" role="region" aria-roledescription="carousel" aria-label="Puma habitats">
+          <div class="slides" aria-live="polite">
+            <figure class="slide" aria-label="1 of 3"><img src="assets/puma-patagonia.webp" alt="Puma on a rocky Patagonian ridge at golden hour" width="1600" height="896" loading="lazy"><figcaption><strong>Patagonian steppe</strong><span>Wind, rock and vast open territory</span></figcaption></figure>
+            <figure class="slide" aria-label="2 of 3" aria-hidden="true"><img src="assets/puma-forest.webp" alt="Puma walking among ferns in a misty evergreen forest" width="1536" height="1024" loading="lazy"><figcaption><strong>Temperate forest</strong><span>Silent cover beneath the canopy</span></figcaption></figure>
+            <figure class="slide" aria-label="3 of 3" aria-hidden="true"><img src="assets/puma-canyon.webp" alt="Puma resting beside sandstone in a desert canyon" width="1536" height="1024" loading="lazy"><figcaption><strong>Desert canyon</strong><span>Shade and shelter in an arid world</span></figcaption></figure>
+          </div>
+          <button class="carousel-button previous" type="button" aria-label="Previous habitat">&#8249;</button>
+          <button class="carousel-button next" type="button" aria-label="Next habitat">&#8250;</button>
+          <div class="dots" aria-label="Choose a habitat"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="conservation">
+      <div class="shell conservation-grid">
+        <div class="conservation-copy"><p class="eyebrow">Conservation</p><h2>Wide-ranging, but not without risk.</h2><p class="lede">Pumas are globally listed as Least Concern, yet many local populations are declining or isolated. Their future depends on connected landscapes and coexistence with people.</p></div>
+        <div class="threats">
+          <article class="threat"><div class="threat-top"><h3>Habitat fragmentation</h3><span class="tag">Connectivity</span></div><p>Roads and development divide territories, restrict gene flow and increase the risk of vehicle collisions.</p></article>
+          <article class="threat"><div class="threat-top"><h3>Human–wildlife conflict</h3><span class="tag">Coexistence</span></div><p>Conflict around livestock can lead to retaliatory killing. Practical prevention helps protect both livelihoods and cats.</p></article>
+          <article class="threat"><div class="threat-top"><h3>Loss of wild prey</h3><span class="tag">Healthy habitats</span></div><p>Where native prey is depleted, pumas face greater pressure and are more likely to approach ranching landscapes.</p></article>
+          <article class="threat"><div class="threat-top"><h3>Local population pressure</h3><span class="tag">Research</span></div><p>Range-wide monitoring is essential: a secure global category can hide serious regional declines.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section resources" aria-labelledby="resources-title">
+      <div class="shell">
+        <p class="eyebrow">Keep exploring</p>
+        <h2 id="resources-title">Go deeper into the wild.</h2>
+        <div class="resource-grid">
+          <a class="resource-card" href="https://panthera.org/cat/puma" target="_blank" rel="noopener"><small>Panthera</small><span class="resource-arrow" aria-hidden="true">↗</span><h3>Puma species profile</h3><p>Range, ecology, threats and conservation work from the global wild cat organization.</p></a>
+          <a class="resource-card" href="https://panthera.org/program/puma" target="_blank" rel="noopener"><small>Panthera</small><span class="resource-arrow" aria-hidden="true">↗</span><h3>The Puma Program</h3><p>How researchers are connecting landscapes and supporting coexistence across the Americas.</p></a>
+          <a class="resource-card" href="https://www.nationalgeographic.com/animals/mammals/facts/cougar" target="_blank" rel="noopener"><small>National Geographic</small><span class="resource-arrow" aria-hidden="true">↗</span><h3>Cougar facts</h3><p>A visual guide to puma biology, hunting, reproduction and survival.</p></a>
+          <a class="resource-card" href="https://animaldiversity.org/accounts/Puma_concolor/" target="_blank" rel="noopener"><small>Animal Diversity Web</small><span class="resource-arrow" aria-hidden="true">↗</span><h3>Puma concolor research</h3><p>A detailed academic species account from the University of Michigan Museum of Zoology.</p></a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer><div class="shell footer-inner"><span>Sharp Puma — an independent educational project.</span><span>Images created for this site · 2026</span></div></footer>
 
   <script>
     const carousel = document.querySelector('.carousel');
     const track = carousel.querySelector('.slides');
     const slides = [...carousel.querySelectorAll('.slide')];
     const dots = carousel.querySelector('.dots');
-    let current = 0;
-    let timer;
-    let touchStartX = 0;
-
+    let current = 0, timer, touchStartX = 0;
     slides.forEach((_, index) => {
       const dot = document.createElement('button');
-      dot.className = 'dot';
-      dot.type = 'button';
-      dot.setAttribute('aria-label', `Show image ${index + 1}`);
-      dot.addEventListener('click', () => show(index, true));
-      dots.append(dot);
+      dot.className = 'dot'; dot.type = 'button';
+      dot.setAttribute('aria-label', `Show habitat ${index + 1}`);
+      dot.addEventListener('click', () => show(index, true)); dots.append(dot);
     });
-
     const dotButtons = [...dots.children];
-
     function show(index, restart = false) {
       current = (index + slides.length) % slides.length;
       track.style.transform = `translateX(-${current * 100}%)`;
@@ -177,32 +361,20 @@
       dotButtons.forEach((dot, i) => dot.setAttribute('aria-current', i === current));
       if (restart) start();
     }
-
     function start() {
       clearInterval(timer);
-      if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
-        timer = setInterval(() => show(current + 1), 5500);
-      }
+      if (!matchMedia('(prefers-reduced-motion: reduce)').matches) timer = setInterval(() => show(current + 1), 6000);
     }
-
     carousel.querySelector('.previous').addEventListener('click', () => show(current - 1, true));
     carousel.querySelector('.next').addEventListener('click', () => show(current + 1, true));
     carousel.addEventListener('mouseenter', () => clearInterval(timer));
     carousel.addEventListener('mouseleave', start);
     carousel.addEventListener('focusin', () => clearInterval(timer));
     carousel.addEventListener('focusout', start);
-    carousel.addEventListener('keydown', event => {
-      if (event.key === 'ArrowLeft') show(current - 1, true);
-      if (event.key === 'ArrowRight') show(current + 1, true);
-    });
-    carousel.addEventListener('touchstart', event => { touchStartX = event.changedTouches[0].clientX; }, { passive: true });
-    carousel.addEventListener('touchend', event => {
-      const distance = event.changedTouches[0].clientX - touchStartX;
-      if (Math.abs(distance) > 45) show(current + (distance < 0 ? 1 : -1), true);
-    }, { passive: true });
-
-    show(0);
-    start();
+    carousel.addEventListener('keydown', event => { if (event.key === 'ArrowLeft') show(current - 1, true); if (event.key === 'ArrowRight') show(current + 1, true); });
+    carousel.addEventListener('touchstart', event => touchStartX = event.changedTouches[0].clientX, { passive: true });
+    carousel.addEventListener('touchend', event => { const distance = event.changedTouches[0].clientX - touchStartX; if (Math.abs(distance) > 45) show(current + (distance < 0 ? 1 : -1), true); }, { passive: true });
+    show(0); start();
   </script>
 </body>
 </html>
