@@ -35,6 +35,24 @@
     img { max-width: 100%; }
     a { color: inherit; }
     button { font: inherit; }
+    .ai-badge {
+      position: absolute;
+      z-index: 5;
+      top: 14px;
+      right: 14px;
+      display: grid;
+      place-items: center;
+      width: 32px;
+      height: 32px;
+      color: var(--ink);
+      background: rgb(200 227 108 / 92%);
+      border: 1px solid rgb(255 255 255 / 55%);
+      border-radius: 50%;
+      box-shadow: 0 5px 18px rgb(0 0 0 / 20%);
+      font-size: 1rem;
+      line-height: 1;
+      backdrop-filter: blur(6px);
+    }
     .shell { width: min(1160px, calc(100% - 48px)); margin-inline: auto; }
     .eyebrow {
       display: inline-flex;
@@ -86,6 +104,7 @@
       z-index: 1;
     }
     .hero-image { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+    .hero > .ai-badge { top: 96px; right: max(24px, calc((100vw - 1160px) / 2)); }
     .hero-content { position: relative; z-index: 2; padding: 180px 0 115px; }
     .hero .eyebrow { color: var(--lime); }
     h1 { max-width: 760px; margin: 0; font-size: clamp(3.8rem, 9.3vw, 7.7rem); letter-spacing: -.065em; }
@@ -123,7 +142,8 @@
 
     .family-section { padding: 0; background: var(--sand); }
     .family-grid { display: grid; grid-template-columns: 1.05fr .95fr; min-height: 680px; }
-    .family-image { width: 100%; height: 100%; object-fit: cover; }
+    .family-image-wrap { position: relative; min-height: 420px; }
+    .family-image { display: block; width: 100%; height: 100%; object-fit: cover; }
     .family-copy { display: flex; flex-direction: column; justify-content: center; padding: 80px clamp(36px, 7vw, 100px); }
     .family-copy p { color: #596159; }
     .detail-list { display: grid; gap: 17px; margin-top: 20px; }
@@ -204,7 +224,7 @@
       .fact-card { min-height: 230px; }
       .family-grid { min-height: auto; }
       .family-copy { padding: 70px 24px; }
-      .slide img { aspect-ratio: 4/5; }
+      .slide img { aspect-ratio: 3/2; object-fit: contain; background: var(--ink); }
       .slide figcaption { padding-inline: 20px; }
       .dots { left: 20px; right: auto; bottom: 18px; }
       .slide figcaption { padding-bottom: 53px; }
@@ -233,6 +253,7 @@
   <main id="top">
     <section class="hero">
       <img class="hero-image" src="assets/puma-hero.webp" alt="Puma walking through golden grass in the Andes at sunrise" width="1792" height="896">
+      <span class="ai-badge" role="img" aria-label="AI-generated image" title="AI-generated image">✦</span>
       <div class="shell hero-content">
         <p class="eyebrow">Ghost cat of the Americas</p>
         <h1>Built for the wild.</h1>
@@ -253,7 +274,7 @@
 
     <section class="section" id="discover">
       <div class="shell intro-grid">
-        <div class="portrait-wrap"><img src="assets/puma-portrait.webp" alt="Close portrait of an attentive adult puma" width="1536" height="1024" loading="lazy"></div>
+        <div class="portrait-wrap"><img src="assets/puma-portrait.webp" alt="Close portrait of an attentive adult puma" width="1536" height="1024" loading="lazy"><span class="ai-badge" role="img" aria-label="AI-generated image" title="AI-generated image">✦</span></div>
         <div class="intro-copy">
           <p class="eyebrow">Meet an icon</p>
           <h2>Many names. One remarkable cat.</h2>
@@ -281,7 +302,7 @@
 
     <section class="family-section" aria-labelledby="family-title">
       <div class="family-grid">
-        <img class="family-image" src="assets/puma-family.webp" alt="Puma mother resting in a rocky den with two spotted cubs" width="1536" height="1024" loading="lazy">
+        <div class="family-image-wrap"><img class="family-image" src="assets/puma-family.webp" alt="Puma mother resting in a rocky den with two spotted cubs" width="1536" height="1024" loading="lazy"><span class="ai-badge" role="img" aria-label="AI-generated image" title="AI-generated image">✦</span></div>
         <div class="family-copy">
           <p class="eyebrow">The next generation</p>
           <h2 id="family-title">Born spotted. Raised wild.</h2>
@@ -303,9 +324,9 @@
         </div>
         <div class="carousel" role="region" aria-roledescription="carousel" aria-label="Puma habitats">
           <div class="slides" aria-live="polite">
-            <figure class="slide" aria-label="1 of 3"><img src="assets/puma-patagonia.webp" alt="Puma on a rocky Patagonian ridge at golden hour" width="1600" height="896" loading="lazy"><figcaption><strong>Patagonian steppe</strong><span>Wind, rock and vast open territory</span></figcaption></figure>
-            <figure class="slide" aria-label="2 of 3" aria-hidden="true"><img src="assets/puma-forest.webp" alt="Puma walking among ferns in a misty evergreen forest" width="1536" height="1024" loading="lazy"><figcaption><strong>Temperate forest</strong><span>Silent cover beneath the canopy</span></figcaption></figure>
-            <figure class="slide" aria-label="3 of 3" aria-hidden="true"><img src="assets/puma-canyon.webp" alt="Puma resting beside sandstone in a desert canyon" width="1536" height="1024" loading="lazy"><figcaption><strong>Desert canyon</strong><span>Shade and shelter in an arid world</span></figcaption></figure>
+            <figure class="slide" aria-label="1 of 3"><img src="assets/puma-patagonia.webp" alt="Puma on a rocky Patagonian ridge at golden hour" width="1600" height="896" loading="lazy"><span class="ai-badge" role="img" aria-label="AI-generated image" title="AI-generated image">✦</span><figcaption><strong>Patagonian steppe</strong><span>Wind, rock and vast open territory</span></figcaption></figure>
+            <figure class="slide" aria-label="2 of 3" aria-hidden="true"><img src="assets/puma-forest.webp" alt="Puma walking among ferns in a misty evergreen forest" width="1536" height="1024" loading="lazy"><span class="ai-badge" role="img" aria-label="AI-generated image" title="AI-generated image">✦</span><figcaption><strong>Temperate forest</strong><span>Silent cover beneath the canopy</span></figcaption></figure>
+            <figure class="slide" aria-label="3 of 3" aria-hidden="true"><img src="assets/puma-canyon.webp" alt="Puma resting beside sandstone in a desert canyon" width="1536" height="1024" loading="lazy"><span class="ai-badge" role="img" aria-label="AI-generated image" title="AI-generated image">✦</span><figcaption><strong>Desert canyon</strong><span>Shade and shelter in an arid world</span></figcaption></figure>
           </div>
           <button class="carousel-button previous" type="button" aria-label="Previous habitat">&#8249;</button>
           <button class="carousel-button next" type="button" aria-label="Next habitat">&#8250;</button>
